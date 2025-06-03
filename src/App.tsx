@@ -35,6 +35,9 @@ function App() {
   const checkPrime = async () => {
     try {
       setIsLoadingPrime(true)
+      console.log('Sending request to:', API_URL)
+      console.log('Request body:', { number: Number(number) })
+      
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -42,7 +45,15 @@ function App() {
         },
         body: JSON.stringify({ number: Number(number) }),
       })
+      
+      console.log('Response status:', response.status)
       const data = await response.json()
+      console.log('Response data:', data)
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to check prime number')
+      }
+      
       setResult(data.isPrime 
         ? `${number} is a prime number!` 
         : `${number} is not a prime number.`)
