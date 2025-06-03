@@ -17,8 +17,8 @@ This is a modern full-stack application that demonstrates the integration of var
 ## 📸 Screenshots
 
 ### Application Preview
-![Application Preview](./src/assets/image.png)
-![Secondary View](./src/assets/image1.png)
+![Application Preview](./src/assets/image1.png)
+![Secondary View](./src/assets/image.png)
 
 ## 🛠 Technologies Used
 
