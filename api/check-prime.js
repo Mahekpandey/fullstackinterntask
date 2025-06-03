@@ -28,14 +28,21 @@ module.exports = async (req, res) => {
 
     // Handle POST request
     if (req.method === 'POST') {
-        const { number } = req.body;
-        
-        if (typeof number !== 'number') {
-            return res.status(400).json({ error: 'Please provide a valid number' });
-        }
+        try {
+            // Parse the request body if it's a string
+            const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+            const number = Number(body.number);
+            
+            if (isNaN(number)) {
+                return res.status(400).json({ error: 'Please provide a valid number' });
+            }
 
-        const result = isPrime(number);
-        return res.json({ number, isPrime: result });
+            const result = isPrime(number);
+            return res.json({ number, isPrime: result });
+        } catch (error) {
+            console.error('Error processing request:', error);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
     }
 
     // Handle invalid methods
